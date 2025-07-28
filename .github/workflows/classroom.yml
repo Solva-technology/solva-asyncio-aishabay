@@ -13,18 +13,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: PyV
-      id: pyv
+    - name: Pytest V
+      id: pytest-v
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: PyV
-        setup-command: pip install pytest
+        test-name: Pytest V
+        setup-command: pip install -r requirements.txt
         command: pytest -v
         timeout: 10
         max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        PYV_RESULTS: "${{steps.pyv.outputs.result}}"
+        PYTEST-V_RESULTS: "${{steps.pytest-v.outputs.result}}"
       with:
-        runners: pyv
+        runners: pytest-v
